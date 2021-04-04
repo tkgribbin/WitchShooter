@@ -14,11 +14,16 @@ class WITCHVSWIZARDSTESTER_API AWeapon : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AWeapon();
-	void PullTrigger();
+	virtual void PullTrigger();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere)
+		float Damage = 10;
+
+	AController* GetOwnerController() const;
 
 public:
 	// Called every frame
@@ -37,22 +42,13 @@ private:
 	UPROPERTY(EditAnywhere)
 		USoundBase* WeaponSound;
 
-	UPROPERTY(EditAnywhere)
-		UParticleSystem* HitParticle;
+	
 
-	UPROPERTY(EditAnywhere)
-		USoundBase* HitSound;
 
-	UPROPERTY(EditAnywhere)
-		float MaxRange = 1000;
+	
 
-	UPROPERTY(EditAnywhere)
-		float Damage = 10;
 
-	UPROPERTY()
-		FString ObjectHitName = "Nothing";
+	
+	
 
-	bool WeaponTrace(FHitResult& Hit, FVector& ShotDirection);
-
-	AController* GetOwnerController() const;
 };

@@ -4,7 +4,6 @@
 #include "Weapon.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "DrawDebugHelpers.h"
 
 // Sets default values
 AWeapon::AWeapon()
@@ -35,39 +34,6 @@ void AWeapon::PullTrigger()
 {
 	UGameplayStatics::SpawnEmitterAttached(Flash, Mesh, TEXT("WeaponFlashSocket"));
 	UGameplayStatics::SpawnSoundAttached(WeaponSound, Mesh, TEXT("WeaponFlashSocket"));
-
-	FHitResult Hit;
-	FVector ShotDirection;
-	bool bSuccess = WeaponTrace(Hit, ShotDirection);
-	if (bSuccess)
-	{
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitParticle, Hit.Location, ShotDirection.Rotation());
-		UGameplayStatics::SpawnSoundAtLocation(GetWorld(), HitSound, Hit.Location);
-
-		AActor* HitActor = Hit.GetActor();
-		if (!HitActor) { return; }
-		FPointDamageEvent DamageEvent(Damage, Hit, ShotDirection, nullptr);
-		AController* OwnerController = GetOwnerController();
-		if (!OwnerController) return;
-		HitActor->TakeDamage(Damage, DamageEvent, OwnerController, this);
-	}
-}
-
-bool AWeapon::WeaponTrace(FHitResult& Hit, FVector& ShotDirection)
-{
-	AController* OwnerController = GetOwnerController();
-	if (!OwnerController) return false;
-
-	FVector Location;
-	FRotator Rotation;
-	OwnerController->GetPlayerViewPoint(Location, Rotation);
-	ShotDirection = -Rotation.Vector();
-
-	FVector End = Location + Rotation.Vector() * MaxRange;
-	FCollisionQueryParams Params;
-	Params.AddIgnoredActor(this);
-	Params.AddIgnoredActor(GetOwner());
-	return GetWorld()->LineTraceSingleByChannel(Hit, Location, End, ECollisionChannel::ECC_GameTraceChannel1, Params);
 }
 
 AController* AWeapon::GetOwnerController() const
