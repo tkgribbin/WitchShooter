@@ -6,6 +6,8 @@
 #include "Weapon.h"
 #include "WeaponProjectile.generated.h"
 
+class AProjectileBase;
+
 /**
  * 
  */
@@ -18,8 +20,14 @@ public:
 	AWeaponProjectile();
 	virtual void PullTrigger() override;
 
+	FRotator GetShotRotation();
+
 private:
-	//Is needed? Move to Weapon Base
-	//AController* GetOwnerController() const;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+		USceneComponent* ProjectileSpawnPoint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
+		TSubclassOf<AProjectileBase> ProjectileClass;
 
 };

@@ -34,8 +34,6 @@ private:
 		UParticleSystem* HitParticle;
 	UPROPERTY(EditAnywhere, Category = "Effects")
 		USoundBase* HitSound;
-	UPROPERTY(EditAnywhere, Category = "Effects")
-		USoundBase* LaunchSound;
 
 
 	//Functions
@@ -49,5 +47,4 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
 };

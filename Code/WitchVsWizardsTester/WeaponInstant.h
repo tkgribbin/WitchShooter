@@ -22,9 +22,6 @@ private:
 	
 	bool WeaponTrace(FHitResult& Hit, FVector& ShotDirection);
 	
-
-
-
 	UPROPERTY(EditAnywhere)
 		UParticleSystem* HitParticle;
 
