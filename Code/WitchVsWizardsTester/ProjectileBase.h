@@ -26,15 +26,17 @@ private:
 	//Variables
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage", meta = (AllowPrivateAccess = "true"))
 		TSubclassOf<UDamageType> DamageType;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage", meta = (AllowPrivateAccess = "true"))
-		float Damage = 50.f;
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Move", meta = (AllowPrivateAccess = "true"))
 		float MovementSpeed = 1300.f;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Move", meta = (AllowPrivateAccess = "true"))
+		float Lifespan = 3.f;
 	UPROPERTY(EditAnywhere, Category = "Effects")
 		UParticleSystem* HitParticle;
 	UPROPERTY(EditAnywhere, Category = "Effects")
 		USoundBase* HitSound;
-
+	UPROPERTY()
+		float Damage;
 
 	//Functions
 	UFUNCTION()
@@ -43,6 +45,10 @@ private:
 public:
 	// Sets default values for this actor's properties
 	AProjectileBase();
+
+
+
+	void SetDamage(float NewDamage);
 
 protected:
 	// Called when the game starts or when spawned

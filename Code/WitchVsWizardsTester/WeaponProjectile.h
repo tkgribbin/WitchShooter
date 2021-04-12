@@ -8,9 +8,6 @@
 
 class AProjectileBase;
 
-/**
- * 
- */
 UCLASS()
 class WITCHVSWIZARDSTESTER_API AWeaponProjectile : public AWeapon
 {
@@ -20,7 +17,7 @@ public:
 	AWeaponProjectile();
 	virtual void PullTrigger() override;
 
-	FRotator GetShotRotation();
+	FRotator GetShotRotation(FVector HitLocation);
 
 private:
 
@@ -30,4 +27,14 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
 		TSubclassOf<AProjectileBase> ProjectileClass;
 
+	bool WeaponTrace(FHitResult& Hit, FVector& ShotDirection);
+
+	void SpawnProjectile(FVector Location, FRotator Rotation);
+
+	FVector GetSpawnLocation();
+
+	FRotator GetSpawnRotation();
+
+	UPROPERTY(EditAnywhere)
+		float MaxRange = 10000;
 };
