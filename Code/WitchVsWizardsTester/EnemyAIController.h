@@ -2,8 +2,9 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "AIController.h"
+#include "CoreMinimal.h"
+#include "GameModeObjectives.h"
 #include "EnemyAIController.generated.h"
 
 /**

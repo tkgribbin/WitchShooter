@@ -10,14 +10,17 @@ void AEnemyAIController::BeginPlay()
 {
     Super::BeginPlay();
 
+    AGameModeObjectives* const GameModeObjectives = GetWorld()->GetAuthGameMode<AGameModeObjectives>();
+
     if (AIBehavior != nullptr)
     {
         RunBehaviorTree(AIBehavior);
-
+        
         APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 
         GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
         GetBlackboardComponent()->SetValueAsVector(TEXT("StartLocation"), GetPawn()->GetActorLocation());
+        GetBlackboardComponent()->SetValueAsInt(TEXT("ObjectiveNumber"),  GameModeObjectives->GetCurrentObjective());
     }
 }
 

@@ -31,4 +31,27 @@ private:
 	UPROPERTY(EditAnywhere)
 		float MaxRange = 1000;
 
+	//Handles shot delay
+	FTimerHandle FlashTimerHandle;
+
+	UPROPERTY(EditAnywhere)
+		float FlashTime = 0.5f;
+
+	bool bFlashVisible;
+
+	void ResetFlash();
+
+	//Components
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+		UParticleSystemComponent* BeamParticle;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+		USceneComponent* BeamTarget;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+		USceneComponent* BeamSource;
+
+	//Variables
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Move", meta = (AllowPrivateAccess = "true"))
+		float Lifespan = 3.f;
 };

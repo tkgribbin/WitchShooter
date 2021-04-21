@@ -12,9 +12,15 @@ AWeaponProjectile::AWeaponProjectile()
 
 void AWeaponProjectile::PullTrigger()
 {
-	Super::PullTrigger();
+	if (bCanFire)
+	{
+		bCanFire = false;
 
-	SpawnProjectile(GetSpawnLocation(), GetSpawnRotation());
+		Super::PullTrigger();
+		SpawnProjectile(GetSpawnLocation(), GetSpawnRotation());
+
+		GetWorld()->GetTimerManager().SetTimer(FireDelayTimerHandle, this, &AWeaponProjectile::ResetFire, FireDelay, false);
+	}
 }
 
 FVector AWeaponProjectile::GetSpawnLocation()

@@ -15,10 +15,19 @@ public:
 	// Sets default values for this actor's properties
 	AWeapon();
 	virtual void PullTrigger();
+	void ResetFire();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	bool bCanFire;
+
+	//Handles shot delay
+	FTimerHandle FireDelayTimerHandle;
+
+	UPROPERTY(EditAnywhere)
+		float FireDelay = 0.f;
 
 	UPROPERTY(EditAnywhere)
 		float Damage = 10;

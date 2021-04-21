@@ -18,7 +18,9 @@ ABeamBase::ABeamBase()
 
 	BeamTarget = CreateDefaultSubobject<USceneComponent>(TEXT("Beam Target"));
 	BeamTarget->SetupAttachment(RootComponent);
-
+	
+	BeamParticle->SetVectorParameter("Target", BeamTarget->GetComponentLocation());
+	BeamParticle->SetVectorParameter("Source", BeamTarget->GetComponentLocation());
 }
 
 // Called when the game starts or when spawned

@@ -16,6 +16,8 @@ AWeapon::AWeapon()
 
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(Root);
+
+	bCanFire = true;
 }
 
 // Called when the game starts or when spawned
@@ -23,6 +25,7 @@ void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 }
+
 
 // Called every frame
 void AWeapon::Tick(float DeltaTime)
@@ -34,6 +37,12 @@ void AWeapon::PullTrigger()
 {
 	UGameplayStatics::SpawnEmitterAttached(Flash, Mesh, TEXT("WeaponFlashSocket"));
 	UGameplayStatics::SpawnSoundAttached(WeaponSound, Mesh, TEXT("WeaponFlashSocket"));
+}
+
+void AWeapon::ResetFire()
+{
+	bCanFire = true;
+	GetWorldTimerManager().ClearTimer(FireDelayTimerHandle);
 }
 
 AController* AWeapon::GetOwnerController() const
